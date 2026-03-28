@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Milk Quality Prediction - Group 24</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Milk Quality Prediction</h1>
+        <p>Enter milk parameters to classify quality level (Low, Medium, High)</p>
+        
+        <form action="/predict" method="post">
+            <div class="input-grid">
+                <input type="number" step="0.1" name="pH" placeholder="pH (e.g. 6.6)" required>
+                <input type="number" name="Temprature" placeholder="Temperature" required>
+                <select name="Taste" required>
+                    <option value="" disabled selected>Taste Quality</option>
+                    <option value="0">Bad (0)</option>
+                    <option value="1">Good (1)</option>
+                </select>
+                <select name="Odor" required>
+                    <option value="" disabled selected>Odor Quality</option>
+                    <option value="0">Bad (0)</option>
+                    <option value="1">Good (1)</option>
+                </select>
+                <select name="Fat" required>
+                    <option value="" disabled selected>Fat Content</option>
+                    <option value="0">Low (0)</option>
+                    <option value="1">High (1)</option>
+                </select>
+                <select name="Turbidity" required>
+                    <option value="" disabled selected>Turbidity</option>
+                    <option value="0">Low (0)</option>
+                    <option value="1">High (1)</option>
+                </select>
+                <input type="number" name="Colour" placeholder="Colour Code (e.g. 255)" required>
+                
+                <select name="algorithm" class="algo-select" required>
+                    <option value="Decision Tree">Algorithm: Decision Tree</option>
+                    <option value="KNN">Algorithm: KNN</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn">Predict Quality</button>
+        </form>
+
+        {% if prediction_text %}
+        <div class="result-box">
+            <h2>{{ prediction_text }}</h2>
+            <p>{{ algo_used }}</p>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
